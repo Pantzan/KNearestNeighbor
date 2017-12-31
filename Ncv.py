@@ -1,4 +1,4 @@
-from Knn import Knn
+from PythonKnn import PythonKnn
 
 def NestedCrossVal(X,y,foldK,nns,dists,mySeed):
     np.random.seed(mySeed)
@@ -37,7 +37,7 @@ def NestedCrossVal(X,y,foldK,nns,dists,mySeed):
         #loop to all available parametres and find the best to train the model
         for d in range(0, len(dists)):           
             for k in nns:
-                knn = MyKnn(k, dists[d])
+                knn = PythonKnn(k, dists[d])
                 knn.fit(X[foldTrain], y[foldTrain])              
                 
                 y_pred = knn.predict(X[foldVal])
@@ -55,7 +55,7 @@ def NestedCrossVal(X,y,foldK,nns,dists,mySeed):
         newTrain.extend(foldVal)       
         
         # call the Knn and train with the best found parametres
-        knn = MyKnn(bestNN, metric=bestDistance)
+        knn = PythonKnn(bestNN, metric=bestDistance)
         knn.fit(X[newTrain], y[newTrain])                
         y_pred = knn.predict(X[foldTest])
         acc = knn.accuracy(y[foldTest], y_pred)

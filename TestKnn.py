@@ -1,4 +1,4 @@
-from Knn import Knn
+from PythonKnn import PythonKnn
 # Load the IRIS dataset, as in the labs
 # %matplotlib inline
 
@@ -40,7 +40,7 @@ indices= np.random.permutation(X.shape[0])
 bins=np.array_split(indices,2) # we  just need a training and testing set here
 foldTrain=bins[0]
 foldTest=bins[1]
-knn=Knn(10,'euclidean')
+knn=PythonKnn(10,'euclidean')
 knn.fit(X[foldTrain],y[foldTrain])
 y_pred=knn.predict(X[foldTest])
 a = np.where(y_pred != y[foldTest])
