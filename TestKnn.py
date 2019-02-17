@@ -1,7 +1,8 @@
 from PythonKnn import PythonKnn
 # Load the IRIS dataset, as in the labs
-# %matplotlib inline
 
+# uncomment this if you use jupyter
+# %matplotlib inline
 
 from sklearn import datasets
 import numpy as np
@@ -18,7 +19,6 @@ import operator
 
 
 iris = datasets.load_iris()
-
 #view a description of the dataset (uncomment next line to do so)
 #print(iris.DESCR)
 
@@ -40,10 +40,12 @@ indices= np.random.permutation(X.shape[0])
 bins=np.array_split(indices,2) # we  just need a training and testing set here
 foldTrain=bins[0]
 foldTest=bins[1]
-knn=PythonKnn(10,'euclidean')
-knn.fit(X[foldTrain],y[foldTrain])
+
+knn=PythonKnn(10, 'euclidean')
+knn.fit(X[foldTrain], y[foldTrain])
 y_pred=knn.predict(X[foldTest])
+
 a = np.where(y_pred != y[foldTest])
-print(knn.accuracy(y[foldTest],y_pred))
-# print(knn.confMat())
+print("accuracy: ", knn.accuracy(y[foldTest],y_pred))
+
 # print(knn.confMat(y[foldTest],y_pred,len(np.unique(y))))

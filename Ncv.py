@@ -1,19 +1,21 @@
 from PythonKnn import PythonKnn
 
 def NestedCrossVal(X,y,foldK,nns,dists,mySeed):
+
     np.random.seed(mySeed)
-    accuracy_fold=[]   
+    accuracy_fold = []   
     indices = np.random.permutation(X.shape[0])
-    bins=np.array_split(indices, foldK)
+    bins = np.array_split(indices, foldK)
     sum_matrix = []
-    assert(foldK==len(bins))
+    assert(foldK == len(bins))
+
     for i in range(0,foldK):
         foldTrain=[] 
         foldTest=[]
         foldVal=[]
-
         # split the X to train, test and validation folds
         foldTest.extend(bins[i])
+
         if(i != foldK-1):
             foldVal.extend(bins[i+1])
         else:
@@ -21,7 +23,7 @@ def NestedCrossVal(X,y,foldK,nns,dists,mySeed):
         
         # don't add dublicates
         for j in range(0,len(bins)):
-            if(i != j and i+1 != j):
+            if(i != j and i + 1 != j):
                 if(i == foldK-1 and j == 0):                   
                     continue
                 foldTrain.extend(bins[j])
@@ -35,7 +37,8 @@ def NestedCrossVal(X,y,foldK,nns,dists,mySeed):
         bestAccuracy=-10
         
         #loop to all available parametres and find the best to train the model
-        for d in range(0, len(dists)):           
+        for d in range(0, len(dists)):  
+                 
             for k in nns:
                 knn = PythonKnn(k, dists[d])
                 knn.fit(X[foldTrain], y[foldTrain])              
